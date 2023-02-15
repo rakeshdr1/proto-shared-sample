@@ -1,0 +1,109 @@
+syntax="proto3";
+
+package user;
+
+service UserService {
+    rpc create (CreateUserDto) returns (LoginResponse);
+    rpc signIn (LoginUserDto) returns (LoginResponse);
+    rpc verifyToken (TokenDto) returns (UserResponse);
+    rpc findOneByEmail(GetUserByEmailDto) returns (UserResponse);
+    rpc changePassword(ChangePasswordDto) returns (MessageResponse);
+    rpc createPartner(CreatePartnerDto) returns (MessageResponse);
+}
+
+message CreateUserDto{
+    CreateUserInput createUserInput=1;
+    ClientRequestInput clientRequestInput=2;
+}
+
+message CreateUserInput{
+    string email=1;
+    string firstName=2;
+    string lastName=3;
+    string password=4;
+    string phone=5;
+}
+
+message CreatePartnerDto{
+    string companyName=1;
+    string name=2;
+    string title=3;
+    string email=4;
+    string phone=5;
+    string addressL1=6;
+    string addressL2=7;
+    string postCode=8;
+    string country=9;
+    string city=10;
+    string sector=11;
+    string numEmployees=12;
+    string website=13;
+}
+
+message LoginUserDto{
+    LoginUserInput loginUserInput=1;
+    ClientRequestInput clientRequestInput=2;
+}
+
+message LoginUserInput{
+    string email=1;
+    string password=2;
+    string role=3;
+}
+
+message GetUserByEmailDto {
+    string email=1;
+}
+
+
+message LoginResponse{
+    string accessToken=1;
+    string refreshToken=2;
+    UserResponse user=3;
+}
+
+
+message UserResponse{
+    string _id=1;
+    string email=2;
+    string password=3;
+    string firstName=4;
+    string lastName=5;
+    string phone=6;
+    string role=7;
+    string deletedAt=8;
+    string updatedAt = 9;
+    string createdAt = 10;
+    string companyName=11;
+    string name=12;
+    string title=13;
+    string addressL1=14;
+    string addressL2=15;
+    string postCode=16;
+    string country=17;
+    string city=18;
+    string sector=19;
+    string numEmployees=20;
+    string website=21;
+    bool isApproved=22;
+}
+
+message TokenDto{
+    string accessToken=1;
+    ClientRequestInput clientRequestInput=2;
+}
+
+message ClientRequestInput{
+    string browserId=1;
+}
+
+message MessageResponse{
+    bool success=1;
+    string message=2;
+}
+
+
+message ChangePasswordDto {
+    string email=1;
+    string newPassword=2;
+}

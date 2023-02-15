@@ -1,0 +1,25 @@
+syntax="proto3";
+
+package notification;
+
+service NotificationService {
+    rpc verifyOtpPhoneAndEmail (VerifyOtpPhoneAndEmailDto) returns (VerifyResponse);
+    rpc verifyOtp (VerifyOtpDto) returns (VerifyResponse);
+}
+
+message VerifyOtpDto{
+    string emailOrPhone =1;
+    string otp=2;
+}
+
+message VerifyOtpPhoneAndEmailDto{
+    string email=1;
+    string phone=2;
+    string phoneOtp=3;
+    string emailOtp=4;
+}
+
+message VerifyResponse{
+    bool success=1;
+    string message=2;
+}
